@@ -401,7 +401,7 @@ async function fetchPreviewImage(url: string) {
   try {
     const response = await fetch(url, {
       headers: {
-        "User-Agent": "Agent-i-demo/1.0; preview image fetch"
+        "User-Agent": "Chatbox-demo/1.0; preview image fetch"
       },
       signal: controller.signal
     });
@@ -491,7 +491,7 @@ async function createPlaceResult(body: PlaceRequest, reportStatus: StatusReporte
 
   const client = new OpenAI({ apiKey });
   const outputLanguage = languageInstruction(responseLanguage);
-  const prompt = `Create a compact structured place page JSON for this Agent i demo.
+  const prompt = `Create a compact structured place page JSON for this consumer assistant demo.
 
 You must use web search for this request. Ground every factual description and every resource URL in current web information.
 

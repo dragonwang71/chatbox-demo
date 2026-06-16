@@ -27,11 +27,11 @@ export async function POST(request: Request) {
     .map((message) => `${message.role}: ${message.content}`)
     .join("\n");
 
-  const prompt = `You update the long-term user memory for an Agent i-style consumer assistant demo.
+  const prompt = `You update the long-term user memory for a consumer assistant demo.
 
 Goal:
 - Extract only durable information that helps answer the end user's future everyday questions.
-- Keep this as a fictional Tokyo consumer persona for demonstrating Agent i's memory value.
+- Keep this as a fictional Tokyo consumer persona for demonstrating why memory improves everyday answers.
 - The memory must start exactly with:
 # ユーザーメモ
 
@@ -49,7 +49,7 @@ Store:
 Do not store:
 - raw chat logs
 - one-off requests
-- app-development, portfolio, resume, job-application, coding, UI, or implementation details
+- app-development, coding, UI, or implementation details
 - API keys, secrets, private identifiers, or credentials
 - unsupported guesses about the user
 

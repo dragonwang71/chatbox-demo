@@ -26,7 +26,7 @@ export async function POST(request: Request) {
     .map((message) => `${message.role}: ${message.content}`)
     .join("\n");
 
-  const prompt = `You are the assistant inside a small Agent i portfolio demo.
+  const prompt = `You are the assistant inside a small consumer AI chatbox demo.
 
 Product contract:
 - Answer naturally and concisely.

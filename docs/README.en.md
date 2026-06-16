@@ -2,10 +2,8 @@
 
 [日本語](../README.md) | **English** | [中文](README.zh-CN.md)
 
-Chatbox Demo is a small web demo inspired by Agent i-style consumer AI assistants.  
+Chatbox Demo is a small web demo for exploring consumer AI assistant patterns.  
 It is not intended to be a full chat product. The goal is to demonstrate long-term memory, skill-like structured output, and web-backed place summaries inside a simple, usable interface.
-
-This project is built as a portfolio demo for a LINE Yahoo / Agent i-related role. It is not an official product.
 
 ## Why This Demo
 

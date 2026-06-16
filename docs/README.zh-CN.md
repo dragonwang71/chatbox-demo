@@ -2,10 +2,8 @@
 
 [日本語](../README.md) | [English](README.en.md) | **中文**
 
-Chatbox Demo 是一个面向 Agent i 式 2C AI 助手思路的小型 Web Demo。  
+Chatbox Demo 是一个用于探索 2C AI 助手产品形态的小型 Web Demo。  
 它不是完整聊天产品，而是用一个简洁界面展示长期记忆、类 Skill 的结构化输出，以及基于网络信息的地点页生成。
-
-这个项目用于 LINE Yahoo / Agent i 相关岗位的作品集展示，不是官方产品。
 
 ## 项目动机
 
@@ -113,7 +111,7 @@ docs/         # 多语言 README
 
 ## 范围控制
 
-为了保持面试 Demo 清晰，当前不做：
+为了保持 Demo 清晰，当前不做：
 
 - 登录 / 多用户
 - 数据库

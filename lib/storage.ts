@@ -4,11 +4,11 @@ import { defaultMemory, legacyDefaultMemoryMarkers, seedConversations } from "@/
 import type { UiLanguage } from "@/lib/i18n";
 import type { Conversation } from "@/lib/types";
 
-const conversationsKey = "agent-i-demo-conversations";
-const languageKey = "agent-i-demo-language";
-const languageDefaultVersionKey = "agent-i-demo-language-default-version";
+const conversationsKey = "chatbox-demo-conversations";
+const languageKey = "chatbox-demo-language";
+const languageDefaultVersionKey = "chatbox-demo-language-default-version";
 const currentLanguageDefaultVersion = "ja-default-2026-06";
-const memoryKey = "agent-i-demo-memory";
+const memoryKey = "chatbox-demo-memory";
 
 function isLegacyDefaultMemory(memory: string) {
   const markerMatches = legacyDefaultMemoryMarkers.filter((marker) => memory.includes(marker));
