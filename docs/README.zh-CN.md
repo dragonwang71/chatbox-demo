@@ -11,15 +11,15 @@ Chatbox Demo 是一个用于探索 2C AI 助手产品形态的小型 Web Demo。
 
 这个 Demo 用较小范围实现了这个想法：
 
-- 普通聊天可以读取长期记忆。
+- 普通聊天可以同时读取长期记忆并使用 Web Search。
 - 记忆以 Markdown 形式可见、可编辑。
-- 地点页通过 `/spot_summary` 触发结构化 Skill。
-- 地点页使用 Web Search，让回答和资源尽量基于真实网络信息。
+- 地点页不是另一套产品流程，只是在同一个输入框前面加上 `/spot_summary`。
+- 当聊天输入中检测到 `/spot_summary` 时，应用执行结构化地点页 Skill。
 
 ## 核心功能
 
-- **New Chat**：普通 OpenAI 聊天。
-- **Place Page**：根据地点生成结构化页面，包括简介、资源、概要和关注点。
+- **New Chat**：读取记忆并使用 Web Search 的普通聊天。
+- **Place Page**：在输入框前添加 `/spot_summary`，根据地点生成结构化页面。
 - **Memory**：预览、编辑、更新长期 Markdown 记忆。
 - **Chat History**：有对话后才出现在历史记录里。
 - **Language Switch**：支持日语、英语、中文 UI。
@@ -55,16 +55,20 @@ flowchart TD
   B --> D["Place Page"]
   B --> E["Memory"]
 
-  C --> C1["Read memory from localStorage"]
-  C1 --> C2["Call /api/chat"]
-  C2 --> C3["Render assistant answer"]
-  C3 --> C4["Save conversation locally"]
-
+  C --> F["Open the same chat composer"]
   D --> D1["Prepend /spot_summary to input"]
-  D1 --> D2["Call /api/place"]
-  D2 --> D3["Use OpenAI Web Search"]
-  D3 --> D4["Render structured place page"]
-  D4 --> D5["Save conversation locally"]
+  D1 --> F
+
+  F --> G["Send message"]
+  G --> H["Read memory from localStorage"]
+  H --> I["Use OpenAI Web Search"]
+  I --> J{"Skill prefix?"}
+  J -->|No skill| K["Call /api/chat"]
+  J -->|/spot_summary| L["Call /api/place"]
+  K --> M["Render assistant answer"]
+  L --> N["Render structured place page"]
+  M --> O["Save conversation locally"]
+  N --> O
 
   E --> E1["Preview Markdown memory"]
   E --> E2["Edit memory"]
@@ -85,6 +89,7 @@ flowchart LR
   ChatAPI --> OpenAI["OpenAI Responses API"]
   MemoryAPI --> OpenAI
   PlaceAPI --> OpenAI
+  ChatAPI --> Search["OpenAI Web Search"]
   PlaceAPI --> Search["OpenAI Web Search"]
 
   OpenAI --> ChatAPI

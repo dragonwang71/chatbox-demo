@@ -11,15 +11,15 @@ Chatbox Demo は、2C 向け AI アシスタントの使い方を小さく試す
 
 このデモでは、その考えを小さく実装しています。
 
-- 通常のチャットは、記憶文書を文脈として使う。
+- 通常のチャットも、記憶文書と Web Search を文脈として使う。
 - Memory 画面では、ユーザーの長期文脈を Markdown として見える形にする。
-- Place Page では、`/spot_summary` をきっかけに場所向けの構造化 Skill を呼び出す。
-- 場所ページは Web Search を使い、回答とリソースを実際のネット情報に寄せる。
+- Place Page は別フローではなく、同じ入力欄の先頭に `/spot_summary` を入れる Skill 起動ボタンとして扱う。
+- 入力欄で `/spot_summary` が検出された時だけ、場所向けの構造化出力を実行する。
 
 ## 主な機能
 
-- **New Chat**: OpenAI API を使った通常チャット。
-- **Place Page**: 場所名から、要約、参考リソース、概要、注目ポイントを構造化表示。
+- **New Chat**: 記憶と Web Search を使う通常チャット。
+- **Place Page**: `/spot_summary` を入力欄に追加し、場所名から構造化ページを生成。
 - **Memory**: ユーザー記憶を Markdown でプレビュー、編集、更新。
 - **Chat History**: 会話が始まった後だけ履歴に表示。
 - **Language Switch**: UI 言語を日本語、英語、中国語に切り替え。
@@ -55,16 +55,20 @@ flowchart TD
   B --> D["Place Page"]
   B --> E["Memory"]
 
-  C --> C1["Read memory from localStorage"]
-  C1 --> C2["Call /api/chat"]
-  C2 --> C3["Render assistant answer"]
-  C3 --> C4["Save conversation locally"]
-
+  C --> F["Open the same chat composer"]
   D --> D1["Prepend /spot_summary to input"]
-  D1 --> D2["Call /api/place"]
-  D2 --> D3["Use OpenAI Web Search"]
-  D3 --> D4["Render structured place page"]
-  D4 --> D5["Save conversation locally"]
+  D1 --> F
+
+  F --> G["Send message"]
+  G --> H["Read memory from localStorage"]
+  H --> I["Use OpenAI Web Search"]
+  I --> J{"Skill prefix?"}
+  J -->|No skill| K["Call /api/chat"]
+  J -->|/spot_summary| L["Call /api/place"]
+  K --> M["Render assistant answer"]
+  L --> N["Render structured place page"]
+  M --> O["Save conversation locally"]
+  N --> O
 
   E --> E1["Preview Markdown memory"]
   E --> E2["Edit memory"]
@@ -85,6 +89,7 @@ flowchart LR
   ChatAPI --> OpenAI["OpenAI Responses API"]
   MemoryAPI --> OpenAI
   PlaceAPI --> OpenAI
+  ChatAPI --> Search["OpenAI Web Search"]
   PlaceAPI --> Search["OpenAI Web Search"]
 
   OpenAI --> ChatAPI

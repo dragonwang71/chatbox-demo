@@ -11,15 +11,15 @@ For consumer AI, a powerful model alone is not enough. The assistant should unde
 
 This demo explores that idea in a compact way:
 
-- Normal chat can use a long-term memory document.
+- Normal chat can use both the long-term memory document and web search.
 - Memory is visible and editable as Markdown.
-- Place Page mode uses `/spot_summary` as a lightweight skill trigger.
-- Place pages use web search so resources and answers are grounded in current online information.
+- Place Page is not a separate product flow. It only prepends `/spot_summary` to the same chat input.
+- When the chat input contains `/spot_summary`, the app runs the structured place-page skill.
 
 ## Features
 
-- **New Chat**: normal OpenAI-powered chat.
-- **Place Page**: structured place summary with resources, overview, and user-relevant points.
+- **New Chat**: normal chat with memory and web search.
+- **Place Page**: prepends `/spot_summary` and generates a structured place page.
 - **Memory**: preview, edit, and update long-term Markdown memory.
 - **Chat History**: conversations appear after messages exist.
 - **Language Switch**: Japanese, English, and Chinese UI.
@@ -55,16 +55,20 @@ flowchart TD
   B --> D["Place Page"]
   B --> E["Memory"]
 
-  C --> C1["Read memory from localStorage"]
-  C1 --> C2["Call /api/chat"]
-  C2 --> C3["Render assistant answer"]
-  C3 --> C4["Save conversation locally"]
-
+  C --> F["Open the same chat composer"]
   D --> D1["Prepend /spot_summary to input"]
-  D1 --> D2["Call /api/place"]
-  D2 --> D3["Use OpenAI Web Search"]
-  D3 --> D4["Render structured place page"]
-  D4 --> D5["Save conversation locally"]
+  D1 --> F
+
+  F --> G["Send message"]
+  G --> H["Read memory from localStorage"]
+  H --> I["Use OpenAI Web Search"]
+  I --> J{"Skill prefix?"}
+  J -->|No skill| K["Call /api/chat"]
+  J -->|/spot_summary| L["Call /api/place"]
+  K --> M["Render assistant answer"]
+  L --> N["Render structured place page"]
+  M --> O["Save conversation locally"]
+  N --> O
 
   E --> E1["Preview Markdown memory"]
   E --> E2["Edit memory"]
@@ -85,6 +89,7 @@ flowchart LR
   ChatAPI --> OpenAI["OpenAI Responses API"]
   MemoryAPI --> OpenAI
   PlaceAPI --> OpenAI
+  ChatAPI --> Search["OpenAI Web Search"]
   PlaceAPI --> Search["OpenAI Web Search"]
 
   OpenAI --> ChatAPI

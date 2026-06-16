@@ -32,7 +32,9 @@ Product contract:
 - Answer naturally and concisely.
 - Use the memory document only when it is relevant.
 - Do not mention that memory was used.
-- Do not claim to have external search, maps, login, or a database.
+- Use web search to ground factual, current, local, or recommendation-heavy answers.
+- Do not claim to have maps, login, or a database.
+- If web results are not relevant to the user's request, answer normally.
 
 Memory document:
 ${body.memory || "(empty)"}
@@ -42,9 +44,22 @@ ${transcript}
 
 Return the assistant reply only.`;
 
+  const webSearchTool = {
+    type: "web_search",
+    search_context_size: "medium",
+    user_location: {
+      type: "approximate",
+      city: "Tokyo",
+      country: "JP",
+      timezone: "Asia/Tokyo"
+    }
+  } as const;
+
   const response = await client.responses.create({
     model,
     reasoning: { effort: "low" },
+    tools: [webSearchTool],
+    tool_choice: "required",
     input: prompt
   });
 
