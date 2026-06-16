@@ -22,7 +22,7 @@ This demo explores that idea in a compact way:
 - **Place Page**: prepends `/spot_summary` and generates a structured place page.
 - **Memory**: preview, edit, and update long-term Markdown memory.
 - **Chat History**: conversations appear after messages exist.
-- **Language Switch**: Japanese, English, and Chinese UI.
+- **Language Switch**: Japanese, English, and Chinese UI and answer language. The selected language wins even for kanji-only place names.
 - **Local-first Storage**: conversations, memory, and language settings are stored in browser `localStorage`.
 
 ## Run Locally
@@ -61,7 +61,8 @@ flowchart TD
 
   F --> G["Send message"]
   G --> H["Read memory from localStorage"]
-  H --> I["Use OpenAI Web Search"]
+  H --> H1["Apply selected language"]
+  H1 --> I["Use OpenAI Web Search"]
   I --> J{"Skill prefix?"}
   J -->|No skill| K["Call /api/chat"]
   J -->|/spot_summary| L["Call /api/place"]

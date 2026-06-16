@@ -2,7 +2,7 @@ import type { Conversation } from "@/lib/types";
 
 export const defaultMemory = `# ユーザーメモ
 
-回答は質問された言語に合わせる。
+回答はアプリで選択された言語に合わせる。
 
 ## 基本情報
 - 東京在住の会社員。
@@ -20,6 +20,7 @@ export const defaultMemory = `# ユーザーメモ
 - 場所ページでは最新のWeb情報を確認し、公式サイトや信頼できる参考リンクを含める。`;
 
 export const legacyDefaultMemoryMarkers = [
+  "回答は質問された言語に合わせる。",
   "## Basic Profile",
   "## Product Demo Context",
   "demo memory seed",

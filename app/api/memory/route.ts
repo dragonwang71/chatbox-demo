@@ -35,7 +35,7 @@ Goal:
 - The memory must start exactly with:
 # ユーザーメモ
 
-回答は質問された言語に合わせる。
+回答はアプリで選択された言語に合わせる。
 - Keep useful existing memory that improves the demo user's future answers.
 - Preserve concrete lifestyle details when they help show why memory matters.
 - Merge duplicates and rewrite the memory as clean Japanese Markdown.

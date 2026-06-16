@@ -8,6 +8,7 @@ type PlaceRequest = {
   placeName: string;
   memory: string;
   requestText?: string;
+  responseLanguage?: ResponseLanguage;
 };
 
 type RawResource = {
@@ -47,6 +48,14 @@ function detectResponseLanguage(text: string): ResponseLanguage {
   }
 
   return "en";
+}
+
+function normalizeResponseLanguage(value: unknown): ResponseLanguage | null {
+  if (value === "zh" || value === "ja" || value === "en") {
+    return value;
+  }
+
+  return null;
 }
 
 function languageInstruction(language: ResponseLanguage) {
@@ -483,7 +492,7 @@ async function createPlaceResult(body: PlaceRequest, reportStatus: StatusReporte
   const fallback = createFallbackPlacePage(body.placeName, body.memory);
   const apiKey = process.env.OPENAI_API_KEY;
   const requestText = body.requestText || `/spot_summary ${body.placeName}`;
-  const responseLanguage = detectResponseLanguage(requestText);
+  const responseLanguage = normalizeResponseLanguage(body.responseLanguage) ?? detectResponseLanguage(requestText);
 
   if (!apiKey) {
     reportStatus(statusText(responseLanguage, "done"));
@@ -499,7 +508,9 @@ You must use web search for this request. Ground every factual description and e
 Rules:
 - Return valid JSON only. No markdown fences, no commentary outside JSON.
 - All user-facing JSON string values must be in ${outputLanguage}. This overrides the memory document language.
-- Do not answer in English unless the detected user request language is English.
+- The app's selected language is the source of truth for the reply language.
+- Do not infer Chinese only because the place name or request contains kanji/Han characters.
+- If the user explicitly asks to translate or use a different language inside the message, follow that explicit request.
 - The user request is: ${requestText}
 - Keep each section short and useful in a chat UI.
 - Personalize quietly with memory when relevant, but do not say "I used memory".

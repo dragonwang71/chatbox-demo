@@ -22,7 +22,7 @@ Chatbox Demo は、2C 向け AI アシスタントの使い方を小さく試す
 - **Place Page**: `/spot_summary` を入力欄に追加し、場所名から構造化ページを生成。
 - **Memory**: ユーザー記憶を Markdown でプレビュー、編集、更新。
 - **Chat History**: 会話が始まった後だけ履歴に表示。
-- **Language Switch**: UI 言語を日本語、英語、中国語に切り替え。
+- **Language Switch**: UI と回答言語を日本語、英語、中国語に切り替え。漢字だけの地名でも、選択中の言語を優先します。
 - **Local-first Storage**: 会話、記憶、言語設定はブラウザの `localStorage` に保存。
 
 ## 使い方
@@ -61,7 +61,8 @@ flowchart TD
 
   F --> G["Send message"]
   G --> H["Read memory from localStorage"]
-  H --> I["Use OpenAI Web Search"]
+  H --> H1["Apply selected language"]
+  H1 --> I["Use OpenAI Web Search"]
   I --> J{"Skill prefix?"}
   J -->|No skill| K["Call /api/chat"]
   J -->|/spot_summary| L["Call /api/place"]

@@ -22,7 +22,7 @@ Chatbox Demo 是一个用于探索 2C AI 助手产品形态的小型 Web Demo。
 - **Place Page**：在输入框前添加 `/spot_summary`，根据地点生成结构化页面。
 - **Memory**：预览、编辑、更新长期 Markdown 记忆。
 - **Chat History**：有对话后才出现在历史记录里。
-- **Language Switch**：支持日语、英语、中文 UI。
+- **Language Switch**：切换日语、英语、中文 UI 和回答语言。即使地点名全是汉字，也优先使用当前选择的语言。
 - **Local-first Storage**：聊天、记忆、语言设置保存在浏览器 `localStorage`。
 
 ## 本地运行
@@ -61,7 +61,8 @@ flowchart TD
 
   F --> G["Send message"]
   G --> H["Read memory from localStorage"]
-  H --> I["Use OpenAI Web Search"]
+  H --> H1["Apply selected language"]
+  H1 --> I["Use OpenAI Web Search"]
   I --> J{"Skill prefix?"}
   J -->|No skill| K["Call /api/chat"]
   J -->|/spot_summary| L["Call /api/place"]

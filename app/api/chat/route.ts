@@ -6,9 +6,32 @@ export const runtime = "nodejs";
 type ChatRequest = {
   messages: Pick<ChatMessage, "role" | "content">[];
   memory: string;
+  responseLanguage?: ResponseLanguage;
 };
 
+type ResponseLanguage = "zh" | "ja" | "en";
+
 const model = process.env.OPENAI_MODEL ?? "gpt-5.4-mini";
+
+function normalizeResponseLanguage(value: unknown): ResponseLanguage {
+  if (value === "zh" || value === "ja" || value === "en") {
+    return value;
+  }
+
+  return "en";
+}
+
+function languageInstruction(language: ResponseLanguage) {
+  if (language === "zh") {
+    return "Simplified Chinese";
+  }
+
+  if (language === "ja") {
+    return "Japanese";
+  }
+
+  return "English";
+}
 
 export async function POST(request: Request) {
   const apiKey = process.env.OPENAI_API_KEY;
@@ -22,6 +45,8 @@ export async function POST(request: Request) {
 
   const body = (await request.json()) as ChatRequest;
   const client = new OpenAI({ apiKey });
+  const responseLanguage = normalizeResponseLanguage(body.responseLanguage);
+  const outputLanguage = languageInstruction(responseLanguage);
   const transcript = body.messages
     .map((message) => `${message.role}: ${message.content}`)
     .join("\n");
@@ -35,6 +60,9 @@ Product contract:
 - Use web search to ground factual, current, local, or recommendation-heavy answers.
 - Do not claim to have maps, login, or a database.
 - If web results are not relevant to the user's request, answer normally.
+- Answer in ${outputLanguage}. The app's selected language is the source of truth for the reply language.
+- Do not infer Chinese only because the request contains kanji/Han characters.
+- If the user explicitly asks to translate or use a different language inside the message, follow that explicit request.
 
 Memory document:
 ${body.memory || "(empty)"}

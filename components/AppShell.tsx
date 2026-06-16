@@ -48,6 +48,54 @@ function createConversation(): Conversation {
   };
 }
 
+function defaultPlaceName(language: UiLanguage) {
+  if (language === "zh") {
+    return "这个地点";
+  }
+
+  if (language === "ja") {
+    return "この場所";
+  }
+
+  return "this place";
+}
+
+function defaultPlaceTitle(language: UiLanguage) {
+  if (language === "zh") {
+    return "地点摘要";
+  }
+
+  if (language === "ja") {
+    return "スポット";
+  }
+
+  return "Place Page";
+}
+
+function emptyAssistantReply(language: UiLanguage) {
+  if (language === "zh") {
+    return "没有收到有效回复。";
+  }
+
+  if (language === "ja") {
+    return "有効な返信を受け取れませんでした。";
+  }
+
+  return "No valid reply was received.";
+}
+
+function requestFailureReply(language: UiLanguage, message: string) {
+  if (language === "zh") {
+    return `请求失败：${message}`;
+  }
+
+  if (language === "ja") {
+    return `リクエストに失敗しました：${message}`;
+  }
+
+  return `Request failed: ${message}`;
+}
+
 function parseSpotSummary(text: string) {
   if (!text.startsWith(spotSummaryCommand)) {
     return null;
@@ -320,7 +368,7 @@ export function AppShell() {
       createdAt: now
     };
 
-    const titleSource = isSpotSummary ? placeQuery || "地点摘要" : trimmed;
+    const titleSource = isSpotSummary ? placeQuery || defaultPlaceTitle(language) : trimmed;
     const pendingConversation: Conversation = {
       ...activeConversation,
       mode: "chat",
@@ -351,9 +399,10 @@ export function AppShell() {
                 "Content-Type": "application/json"
               },
               body: JSON.stringify({
-                placeName: placeQuery || "这个地点",
+                placeName: placeQuery || defaultPlaceName(language),
                 memory,
-                requestText: trimmed
+                requestText: trimmed,
+                responseLanguage: language
               })
             });
 
@@ -373,7 +422,8 @@ export function AppShell() {
                   role,
                   content
                 })),
-                memory
+                memory,
+                responseLanguage: language
               })
             });
 
@@ -396,7 +446,7 @@ export function AppShell() {
         : {
             id: createId("msg"),
             role: "assistant",
-            content: result.content ?? "没有收到有效回复。",
+            content: result.content ?? emptyAssistantReply(language),
             createdAt: new Date().toISOString()
           };
 
@@ -407,7 +457,7 @@ export function AppShell() {
       });
     } catch (error) {
       const message =
-        error instanceof Error ? error.message : "请求失败，请检查服务端配置后重试。";
+        error instanceof Error ? error.message : "AI request failed. Please check the server setup.";
 
       upsertConversation({
         ...pendingConversation,
@@ -416,7 +466,7 @@ export function AppShell() {
           {
             id: createId("msg"),
             role: "assistant",
-            content: `请求失败：${message}`,
+            content: requestFailureReply(language, message),
             createdAt: new Date().toISOString()
           }
         ],

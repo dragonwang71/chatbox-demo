@@ -11,6 +11,10 @@ const currentLanguageDefaultVersion = "ja-default-2026-06";
 const memoryKey = "chatbox-demo-memory";
 
 function isLegacyDefaultMemory(memory: string) {
+  if (!memory.includes("回答は質問された言語に合わせる。")) {
+    return false;
+  }
+
   const markerMatches = legacyDefaultMemoryMarkers.filter((marker) => memory.includes(marker));
 
   return markerMatches.length >= 2;
