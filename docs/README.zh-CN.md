@@ -7,6 +7,8 @@ Chatbox Demo 是一个用于探索 2C AI 助手产品形态的小型 Web Demo。
 
 ## Demo
 
+[打开在线 Demo](https://chatbox-demo-rho.vercel.app)
+
 [![Chatbox Demo walkthrough](assets/chatbox-demo-preview.gif)](assets/chatbox-demo-walkthrough.mp4)
 
 [直接打开演示视频](assets/chatbox-demo-walkthrough.mp4)
