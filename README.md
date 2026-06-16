@@ -7,7 +7,9 @@ Chatbox Demo は、2C 向け AI アシスタントの使い方を小さく試す
 
 ## Demo
 
-[公開デモを開く](https://chatbox-demo-rho.vercel.app)
+**[ブラウザでチャット画面を直接試す →](https://chatbox-demo-rho.vercel.app)**
+
+New Chat、Place Page、Memory をそのまま操作できます。
 
 [![Chatbox Demo walkthrough](docs/assets/chatbox-demo-preview.gif)](docs/assets/chatbox-demo-walkthrough.mp4)
 

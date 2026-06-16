@@ -7,7 +7,9 @@ It is not intended to be a full chat product. The goal is to demonstrate long-te
 
 ## Demo
 
-[Open the live demo](https://chatbox-demo-rho.vercel.app)
+**[Try the interactive chat interface in your browser →](https://chatbox-demo-rho.vercel.app)**
+
+You can use New Chat, Place Page, and Memory directly.
 
 [![Chatbox Demo walkthrough](assets/chatbox-demo-preview.gif)](assets/chatbox-demo-walkthrough.mp4)
 
