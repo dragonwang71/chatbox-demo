@@ -5,6 +5,12 @@
 Chatbox Demo は、2C 向け AI アシスタントの使い方を小さく試す Web デモです。  
 目的はフル機能のチャットアプリを作ることではなく、長期記憶、構造化された Skill 出力、Web 情報を使った場所ページを、ひとつのシンプルな UI の中で見せることです。
 
+## Demo
+
+<video src="docs/assets/chatbox-demo-walkthrough.mp4" controls width="100%" title="Chatbox Demo walkthrough"></video>
+
+[動画を直接開く](docs/assets/chatbox-demo-walkthrough.mp4)
+
 ## 背景
 
 一般ユーザー向け AI では、強いモデルをそのまま置くだけでは十分ではありません。ユーザーの日常、好み、移動、関心を自然に扱い、必要な場面で分かりやすい形に変換することが重要です。

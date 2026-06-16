@@ -5,6 +5,12 @@
 Chatbox Demo is a small web demo for exploring consumer AI assistant patterns.  
 It is not intended to be a full chat product. The goal is to demonstrate long-term memory, skill-like structured output, and web-backed place summaries inside a simple, usable interface.
 
+## Demo
+
+<video src="assets/chatbox-demo-walkthrough.mp4" controls width="100%" title="Chatbox Demo walkthrough"></video>
+
+[Open the demo video](assets/chatbox-demo-walkthrough.mp4)
+
 ## Why This Demo
 
 For consumer AI, a powerful model alone is not enough. The assistant should understand user context, fit into everyday scenarios, and turn vague requests into useful product surfaces.

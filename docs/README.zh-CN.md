@@ -5,6 +5,12 @@
 Chatbox Demo 是一个用于探索 2C AI 助手产品形态的小型 Web Demo。  
 它不是完整聊天产品，而是用一个简洁界面展示长期记忆、类 Skill 的结构化输出，以及基于网络信息的地点页生成。
 
+## Demo
+
+<video src="assets/chatbox-demo-walkthrough.mp4" controls width="100%" title="Chatbox Demo walkthrough"></video>
+
+[直接打开演示视频](assets/chatbox-demo-walkthrough.mp4)
+
 ## 项目动机
 
 面向普通用户的 AI 产品，不能只把大模型放进聊天框里。更重要的是：理解用户上下文，融入日常场景，并把模糊请求转成稳定、有用、产品化的界面。
