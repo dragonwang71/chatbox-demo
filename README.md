@@ -7,7 +7,7 @@ Chatbox Demo は、2C 向け AI アシスタントの使い方を小さく試す
 
 ## Demo
 
-<video src="docs/assets/chatbox-demo-walkthrough.mp4" controls width="100%" title="Chatbox Demo walkthrough"></video>
+[![Chatbox Demo walkthrough](docs/assets/chatbox-demo-preview.gif)](docs/assets/chatbox-demo-walkthrough.mp4)
 
 [動画を直接開く](docs/assets/chatbox-demo-walkthrough.mp4)
 

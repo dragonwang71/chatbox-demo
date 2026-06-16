@@ -7,7 +7,7 @@ Chatbox Demo 是一个用于探索 2C AI 助手产品形态的小型 Web Demo。
 
 ## Demo
 
-<video src="assets/chatbox-demo-walkthrough.mp4" controls width="100%" title="Chatbox Demo walkthrough"></video>
+[![Chatbox Demo walkthrough](assets/chatbox-demo-preview.gif)](assets/chatbox-demo-walkthrough.mp4)
 
 [直接打开演示视频](assets/chatbox-demo-walkthrough.mp4)
 

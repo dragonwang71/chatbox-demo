@@ -7,7 +7,7 @@ It is not intended to be a full chat product. The goal is to demonstrate long-te
 
 ## Demo
 
-<video src="assets/chatbox-demo-walkthrough.mp4" controls width="100%" title="Chatbox Demo walkthrough"></video>
+[![Chatbox Demo walkthrough](assets/chatbox-demo-preview.gif)](assets/chatbox-demo-walkthrough.mp4)
 
 [Open the demo video](assets/chatbox-demo-walkthrough.mp4)
 
