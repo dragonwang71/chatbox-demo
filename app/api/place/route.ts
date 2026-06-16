@@ -273,6 +273,7 @@ function parsePayload(
       return {
         ...fallback,
         ...payload,
+        placeName: placeName.trim() || fallback.placeName,
         resources: mergedResources,
         userNotes: payload.userNotes.filter((note): note is string => typeof note === "string")
       };
